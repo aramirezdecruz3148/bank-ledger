@@ -34,6 +34,12 @@ namespace bank_ledger {
         public void CheckBalance() {
             Console.WriteLine("The balance for {0}, is ${1}", Username, InitialBalance);
         }
+        public void Deposit() {
+            Console.WriteLine("Please enter the amount you wish to deposit: ");
+            var deposit = Decimal.Parse(Console.ReadLine());
+            InitialBalance += deposit;
+            Console.WriteLine("Thank you, after your deposit you have ${0} in your account.", InitialBalance);
+        }
     }
     class Program {
         static void Main(string[] args) {
