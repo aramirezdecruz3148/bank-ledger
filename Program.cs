@@ -30,10 +30,10 @@ namespace bank_ledger {
             //will need to add logic here to ensure username and password match created user
             //once I have employed my file-writing database
             Console.WriteLine("");
-            Console.WriteLine("Welcome back, {0}", Username);
+            Console.WriteLine("Welcome back, {0}", Nickname);
         }
         public void CheckBalance() {
-            Console.WriteLine("The balance for {0}, is ${1}", Username, InitialBalance);
+            Console.WriteLine("The balance for {0}, is ${1}", Nickname, InitialBalance);
         }
         public void Deposit() {
             Console.WriteLine("Please enter the amount you wish to deposit: ");
