@@ -29,6 +29,7 @@ namespace bank_ledger {
             } while (enteredPin.Key != ConsoleKey.Enter);
             //will need to add logic here to ensure username and password match created user
             //once I have employed my file-writing database
+            Console.WriteLine("");
             Console.WriteLine("Welcome back, {0}", Username);
         }
         public void CheckBalance() {
@@ -56,6 +57,7 @@ namespace bank_ledger {
     }
     public class EntryMenu {
         User user = new User();
+        OptionsMenu menu = new OptionsMenu();
          public void SignUp_In() {
             int action = 0;
             while (action != 2) {
@@ -75,6 +77,7 @@ namespace bank_ledger {
                     case 2:
                     user.SigninUser();
                     Console.WriteLine("");
+                    menu.MainMenu();
                     break;
                 }
             }
@@ -117,6 +120,8 @@ namespace bank_ledger {
     }
     class Program {
         static void Main(string[] args) {
+            EntryMenu menu = new EntryMenu();
+            menu.SignUp_In();
         }
     }
 }
