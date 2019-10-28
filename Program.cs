@@ -54,6 +54,9 @@ namespace bank_ledger {
             Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
         }
     }
+    public class EntryMenu {
+        User user = new User();
+    }
     class Program {
         static void Main(string[] args) {
         }
