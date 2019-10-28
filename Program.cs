@@ -48,7 +48,10 @@ namespace bank_ledger {
             } else {
                 InitialBalance -= withdrawl;
                 Console.WriteLine("Thank you, after your withdrawl you have ${0} in your account.", InitialBalance);
-      }
+            }
+        }
+        public void SignOut() {
+            Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
         }
     }
     class Program {
