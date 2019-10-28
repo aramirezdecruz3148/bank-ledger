@@ -40,6 +40,16 @@ namespace bank_ledger {
             InitialBalance += deposit;
             Console.WriteLine("Thank you, after your deposit you have ${0} in your account.", InitialBalance);
         }
+        public void Withdrawl() {
+            Console.WriteLine("Please enter the amount you would like to withdraw: ");
+            var withdrawl = Decimal.Parse(Console.ReadLine());
+            if(withdrawl > InitialBalance) {
+                Console.WriteLine("I'm sorry, you have insufficient funds for that transaction.");
+            } else {
+                InitialBalance -= withdrawl;
+                Console.WriteLine("Thank you, after your withdrawl you have ${0} in your account.", InitialBalance);
+      }
+        }
     }
     class Program {
         static void Main(string[] args) {
