@@ -82,6 +82,38 @@ namespace bank_ledger {
     }
     public class OptionsMenu {
         User user = new User();
+        public void MainMenu() {
+            int action = 0;
+            while (action != 4) {
+                Console.WriteLine("******** You are signed into deCruz Bank ********");
+                Console.WriteLine("Please choose from our menu of options...");
+                Console.WriteLine("[1] Check balance.");
+                Console.WriteLine("[2] Make a deposit.");
+                Console.WriteLine("[3] Make a withdrawl.");
+                Console.WriteLine("[4] Sign-out.");
+                Console.WriteLine("Enter the number of the option you wish to select: ");
+                Console.WriteLine("*************************************************");
+                Console.WriteLine("");
+                action = Int32.Parse(Console.ReadLine());
+                switch(action) {
+                case 1:
+                user.CheckBalance();
+                Console.WriteLine("");
+                break;
+                case 2:
+                user.Deposit();
+                Console.WriteLine("");
+                break;
+                case 3:
+                user.Withdrawl();
+                Console.WriteLine("");
+                break;
+                case 4:
+                user.SignOut();
+                break;
+                }
+            }
+        }
     }
     class Program {
         static void Main(string[] args) {
