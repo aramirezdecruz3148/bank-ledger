@@ -56,6 +56,29 @@ namespace bank_ledger {
     }
     public class EntryMenu {
         User user = new User();
+         public void SignUp_In() {
+            int action = 0;
+            while (action != 2) {
+                Console.WriteLine("******** Welcome to deCruz Bank! ********");
+                Console.WriteLine("Please choose from our menu of options...");
+                Console.WriteLine("[1] Create user account.");
+                Console.WriteLine("[2] Sign-in to existing account.");
+                Console.WriteLine("Enter the number of the option you wish to select: ");
+                Console.WriteLine("*****************************************");
+                Console.WriteLine("");
+                action = Int32.Parse(Console.ReadLine());
+                switch(action) {
+                    case 1:
+                    user.CreateUser();
+                    Console.WriteLine("");
+                    break;
+                    case 2:
+                    user.SigninUser();
+                    Console.WriteLine("");
+                    break;
+                }
+            }
+        }
     }
     class Program {
         static void Main(string[] args) {
