@@ -31,6 +31,9 @@ namespace bank_ledger {
             //once I have employed my file-writing database
             Console.WriteLine("Welcome back, {0}", Username);
         }
+        public void CheckBalance() {
+            Console.WriteLine("The balance for {0}, is ${1}", Username, InitialBalance);
+        }
     }
     class Program {
         static void Main(string[] args) {
