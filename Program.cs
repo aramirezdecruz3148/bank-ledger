@@ -16,6 +16,21 @@ namespace bank_ledger {
             InitialBalance = Decimal.Parse(Console.ReadLine());
             Console.Clear();
         }
+        public void SigninUser() {
+            Console.WriteLine("Welcome to deCruz Bank, to sign-in, please enter your username: ");
+            var enteredName = Console.ReadLine();
+            Console.WriteLine("Please enter your pin number: ");
+            string pass = "";
+            ConsoleKeyInfo enteredPin;
+            do {
+                enteredPin = Console.ReadKey(true);
+                pass += enteredPin.KeyChar;
+                Console.Write("*");
+            } while (enteredPin.Key != ConsoleKey.Enter);
+            //will need to add logic here to ensure username and password match created user
+            //once I have employed my file-writing database
+            Console.WriteLine("Welcome back, {0}", Username);
+        }
     }
     class Program {
         static void Main(string[] args) {
