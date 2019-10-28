@@ -80,6 +80,9 @@ namespace bank_ledger {
             }
         }
     }
+    public class OptionsMenu {
+        User user = new User();
+    }
     class Program {
         static void Main(string[] args) {
         }
