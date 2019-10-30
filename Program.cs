@@ -9,6 +9,14 @@ namespace bank_ledger {
         public string Nickname { get; private set; }
         public int PinNumber { get; private set; }
         public decimal InitialBalance { get; private set; }
+        public void CreateDatabase() {
+            XmlTextWriter BankDatabase;
+            BankDatabase = new XmlTextWriter(@"bank-ledger:\bank-database.xml", Encoding.UTF8);
+            BankDatabase.WriteStartDocument();
+            BankDatabase.WriteStartElement("BankDatabase"); 
+            BankDatabase.WriteEndElement();
+            BankDatabase.Close();
+        }
         public void CreateUser() {
             Console.WriteLine("To begin banking please create an account...");
             Console.WriteLine("Enter a username: ");
