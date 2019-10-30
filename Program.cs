@@ -17,6 +17,28 @@ namespace bank_ledger {
             BankDatabase.WriteEndElement();
             BankDatabase.Close();
         }
+        public void AddUserToDatabase(string clientUsername, string clientNickname, string clientPinNumber) {
+            XmlDocument baseInfo = new XmlDocument();
+            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            baseInfo.Load(database);
+            XmlElement user = baseInfo.CreateElement("User");
+            user.SetAttribute("username", clientUsername);
+            XmlElement userName = baseInfo.CreateElement("Username");
+            XmlText userNameText = baseInfo.CreateTextNode(clientUsername);
+            XmlElement nickName = baseInfo.CreateElement("NickName");
+            XmlText nickNameText = baseInfo.CreateTextNode(clientNickname);
+            XmlElement pinNumber = baseInfo.CreateElement("PinNumber");
+            XmlText pinNumberText = baseInfo.CreateTextNode(clientPinNumber);
+            userName.AppendChild(userNameText);
+            nickName.AppendChild(nickNameText);
+            pinNumber.AppendChild(pinNumberText);
+            user.AppendChild(userName);
+            user.AppendChild(nickName);
+            user.AppendChild(pinNumber);
+            baseInfo.DocumentElement.AppendChild(user);
+            database.Close();
+            baseInfo.Save(@"c:\bank-database.xml");
+        }
         public void CreateUser() {
             Console.WriteLine("To begin banking please create an account...");
             Console.WriteLine("Enter a username: ");
