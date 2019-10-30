@@ -84,6 +84,9 @@ namespace bank_ledger {
                 Console.WriteLine("Thank you, after your withdrawl you have ${0} in your account.", InitialBalance);
             }
         }
+        public void TransactionHistory() {
+
+        }
         public void SignOut() {
             Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
         }
@@ -120,13 +123,14 @@ namespace bank_ledger {
         User user = new User();
         public void MainMenu() {
             int action = 0;
-            while (action != 4) {
+            while (action != 5) {
                 Console.WriteLine("******** You are signed into deCruz Bank ********");
                 Console.WriteLine("Please choose from our menu of options...");
                 Console.WriteLine("[1] Check balance.");
                 Console.WriteLine("[2] Make a deposit.");
                 Console.WriteLine("[3] Make a withdrawl.");
-                Console.WriteLine("[4] Sign-out.");
+                Console.WriteLine("[4] View transaction history.");
+                Console.WriteLine("[5] Sign-out.");
                 Console.WriteLine("Enter the number of the option you wish to select: ");
                 Console.WriteLine("*************************************************");
                 Console.WriteLine("");
@@ -145,6 +149,10 @@ namespace bank_ledger {
                 Console.WriteLine("");
                 break;
                 case 4:
+                user.TransactionHistory();
+                Console.WriteLine("");
+                break;
+                case 5:
                 user.SignOut();
                 break;
                 }
