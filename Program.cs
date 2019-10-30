@@ -77,6 +77,8 @@ namespace bank_ledger {
             }
             database.Close();
         }
+    }
+    public class Transactions {
         public void CheckBalance() {
             XmlDocument baseInfo = new XmlDocument();
             FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
@@ -216,7 +218,7 @@ namespace bank_ledger {
         }
     }
     public class OptionsMenu {
-        User user = new User();
+        Transactions transactions = new Transactions();
         public void MainMenu() {
             int action = 0;
             while (action != 5) {
@@ -234,23 +236,23 @@ namespace bank_ledger {
                 Console.Clear();
                 switch(action) {
                     case 1:
-                    user.CheckBalance();
+                    transactions.CheckBalance();
                     Console.WriteLine("");
                     break;
                     case 2:
-                    user.Deposit();
+                    transactions.Deposit();
                     Console.WriteLine("");
                     break;
                     case 3:
-                    user.Withdrawl();
+                    transactions.Withdrawl();
                     Console.WriteLine("");
                     break;
                     case 4:
-                    user.TransactionHistory();
+                    transactions.TransactionHistory();
                     Console.WriteLine("");
                     break;
                     case 5:
-                    user.SignOut();
+                    transactions.SignOut();
                     break;
                 }
             }

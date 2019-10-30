@@ -20,5 +20,13 @@
       <Amount>5.00</Amount>
       <Balance>15.00</Balance>
     </Transaction>
+    <Transaction type="deposited">
+      <Amount>50.00</Amount>
+      <Balance>65.00</Balance>
+    </Transaction>
+    <Transaction type="withdrawl">
+      <Amount>5.00</Amount>
+      <Balance>60.00</Balance>
+    </Transaction>
   </User>
 </BankDatabase>
