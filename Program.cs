@@ -86,7 +86,7 @@ namespace bank_ledger {
             database.Close();
         }
         public void Deposit() {
-            Console.WriteLine("Please enter the amount you wish to deposit: ");
+            Console.WriteLine("Please enter the amount you wish to deposit(in formatt 00.00): ");
             var deposit = Decimal.Parse(Console.ReadLine());
             XmlDocument baseInfo = new XmlDocument();
             FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
@@ -127,7 +127,7 @@ namespace bank_ledger {
             database.Close();
         }
         public void Withdrawl() {
-            Console.WriteLine("Please enter the amount you would like to withdraw: ");
+            Console.WriteLine("Please enter the amount you would like to withdraw (in formatt 00.00): ");
             var withdrawl = Decimal.Parse(Console.ReadLine());
             XmlDocument baseInfo = new XmlDocument();
             FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
