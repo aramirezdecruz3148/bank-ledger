@@ -159,7 +159,7 @@ namespace bank_ledger {
         }
         public void TransactionHistory() {
             Console.WriteLine("Here is your transaction history: ");
-            Console.WriteLine("**********************************");
+            Console.WriteLine("*****************************************");
             XmlDocument baseInfo = new XmlDocument();
             FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
             baseInfo.Load(database);
@@ -174,7 +174,7 @@ namespace bank_ledger {
                 XmlElement balance = (XmlElement)baseInfo.GetElementsByTagName("Balance")[i];
                 Console.WriteLine("Amount {0}: ${1}", transactionType, amount.InnerText);
                 Console.WriteLine("Balance: ${0}", balance.InnerText);
-                Console.WriteLine("**********************************");
+                Console.WriteLine("*****************************************");
             }
             database.Close();
         }
@@ -196,6 +196,7 @@ namespace bank_ledger {
                 Console.WriteLine("*****************************************");
                 Console.WriteLine("");
                 action = Int32.Parse(Console.ReadLine());
+                Console.Clear();
                 switch(action) {
                     case 1:
                     user.CreateUser();
@@ -226,26 +227,27 @@ namespace bank_ledger {
                 Console.WriteLine("*************************************************");
                 Console.WriteLine("");
                 action = Int32.Parse(Console.ReadLine());
+                Console.Clear();
                 switch(action) {
-                case 1:
-                user.CheckBalance();
-                Console.WriteLine("");
-                break;
-                case 2:
-                user.Deposit();
-                Console.WriteLine("");
-                break;
-                case 3:
-                user.Withdrawl();
-                Console.WriteLine("");
-                break;
-                case 4:
-                user.TransactionHistory();
-                Console.WriteLine("");
-                break;
-                case 5:
-                user.SignOut();
-                break;
+                    case 1:
+                    user.CheckBalance();
+                    Console.WriteLine("");
+                    break;
+                    case 2:
+                    user.Deposit();
+                    Console.WriteLine("");
+                    break;
+                    case 3:
+                    user.Withdrawl();
+                    Console.WriteLine("");
+                    break;
+                    case 4:
+                    user.TransactionHistory();
+                    Console.WriteLine("");
+                    break;
+                    case 5:
+                    user.SignOut();
+                    break;
                 }
             }
         }
