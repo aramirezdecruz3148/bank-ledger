@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Xml;
+using System.Text;
 
 namespace bank_ledger {
     public class User {
