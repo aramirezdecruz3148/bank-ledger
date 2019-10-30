@@ -77,6 +77,11 @@ namespace bank_ledger {
             }
             database.Close();
         }
+        public void SignOut() {
+            Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
+        }
+    }
+    public class Transactions {
         public void CheckBalance() {
             XmlDocument baseInfo = new XmlDocument();
             FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
@@ -184,9 +189,6 @@ namespace bank_ledger {
             }
             database.Close();
         }
-        public void SignOut() {
-            Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
-        }
     }
     public class EntryMenu {
         User user = new User();
@@ -216,6 +218,7 @@ namespace bank_ledger {
         }
     }
     public class OptionsMenu {
+        Transactions transactions = new Transactions();
         User user = new User();
         public void MainMenu() {
             int action = 0;
@@ -234,19 +237,19 @@ namespace bank_ledger {
                 Console.Clear();
                 switch(action) {
                     case 1:
-                    user.CheckBalance();
+                    transactions.CheckBalance();
                     Console.WriteLine("");
                     break;
                     case 2:
-                    user.Deposit();
+                    transactions.Deposit();
                     Console.WriteLine("");
                     break;
                     case 3:
-                    user.Withdrawl();
+                    transactions.Withdrawl();
                     Console.WriteLine("");
                     break;
                     case 4:
-                    user.TransactionHistory();
+                    transactions.TransactionHistory();
                     Console.WriteLine("");
                     break;
                     case 5:
