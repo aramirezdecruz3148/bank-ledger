@@ -42,11 +42,13 @@ namespace bank_ledger {
         public void CreateUser() {
             Console.WriteLine("To begin banking please create an account...");
             Console.WriteLine("Enter a username: ");
-            Username = Console.ReadLine();
+            var enteredUsername = Console.ReadLine();
+            Console.WriteLine("Enter a nickname we can refer to you by: ");
+            var enteredNickName = Console.ReadLine();
             Console.WriteLine("Enter a 4 digit pin number: ");
-            PinNumber = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Enter your initial deposit amount for your new account: ");
-            InitialBalance = Decimal.Parse(Console.ReadLine());
+            var enteredPinNumber = Console.ReadLine();
+            CreateDatabase();
+            AddUserToDatabase(enteredUsername, enteredNickName, enteredPinNumber);
             Console.Clear();
         }
         public void SigninUser() {
