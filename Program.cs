@@ -5,10 +5,6 @@ using System.Text;
 
 namespace bank_ledger {
     public class User {
-        public string Username { get; private set; }
-        public string Nickname { get; private set; }
-        public int PinNumber { get; private set; }
-        public decimal InitialBalance { get; private set; }
         public void CreateDatabase() {
             XmlTextWriter BankDatabase;
             BankDatabase = new XmlTextWriter(@"bank-ledger:\bank-database.xml", Encoding.UTF8);
