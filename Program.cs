@@ -92,8 +92,43 @@ namespace bank_ledger {
         public void Deposit() {
             Console.WriteLine("Please enter the amount you wish to deposit: ");
             var deposit = Decimal.Parse(Console.ReadLine());
-            InitialBalance += deposit;
-            Console.WriteLine("Thank you, after your deposit you have ${0} in your account.", InitialBalance);
+            XmlDocument baseInfo = new XmlDocument();
+            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            baseInfo.Load(database);
+            var list = baseInfo.GetElementsByTagName("User");
+            var balanceList = baseInfo.GetElementsByTagName("Balance");
+            if(balanceList.Count == 0) {
+                XmlElement transaction = baseInfo.CreateElement("Transaction");
+                transaction.SetAttribute("type", "deposited");
+                XmlElement amount = baseInfo.CreateElement("Amount");
+                XmlText amountText = baseInfo.CreateTextNode(deposit.ToString());
+                XmlElement balance = baseInfo.CreateElement("Balance");
+                XmlText balanceText = baseInfo.CreateTextNode(deposit.ToString());
+                amount.AppendChild(amountText);
+                balance.AppendChild(balanceText);
+                transaction.AppendChild(amount);
+                transaction.AppendChild(balance);
+                list[0].AppendChild(transaction);
+                baseInfo.Save(@"c:\bank-database.xml");
+                Console.WriteLine("Thank you! After your deposit you have ${0} in your account", deposit);
+            } else {
+                var lastBalance = decimal.Parse(balanceList[balanceList.Count - 1].InnerText);
+                var newBalance = lastBalance + deposit;
+                XmlElement transaction = baseInfo.CreateElement("Transaction");
+                transaction.SetAttribute("type", "deposited");
+                XmlElement amount = baseInfo.CreateElement("Amount");
+                XmlText amountText = baseInfo.CreateTextNode(deposit.ToString());
+                XmlElement balance = baseInfo.CreateElement("Balance");
+                XmlText balanceText = baseInfo.CreateTextNode(newBalance.ToString());
+                amount.AppendChild(amountText);
+                balance.AppendChild(balanceText);
+                transaction.AppendChild(amount);
+                transaction.AppendChild(balance);
+                list[0].AppendChild(transaction);
+                baseInfo.Save(@"c:\bank-database.xml");
+                Console.WriteLine("Thank you! After your deposit you have ${0} in your account", newBalance);
+            }
+            database.Close();
         }
         public void Withdrawl() {
             Console.WriteLine("Please enter the amount you would like to withdraw: ");
