@@ -55,17 +55,25 @@ namespace bank_ledger {
             Console.WriteLine("Welcome to deCruz Bank, to sign-in, please enter your username: ");
             var enteredName = Console.ReadLine();
             Console.WriteLine("Please enter your pin number: ");
-            string pass = "";
-            ConsoleKeyInfo enteredPin;
-            do {
-                enteredPin = Console.ReadKey(true);
-                pass += enteredPin.KeyChar;
-                Console.Write("*");
-            } while (enteredPin.Key != ConsoleKey.Enter);
-            //will need to add logic here to ensure username and password match created user
-            //once I have employed my file-writing database
-            Console.WriteLine("");
-            Console.WriteLine("Welcome back, {0}", Nickname);
+            var enteredPin = Console.ReadLine();
+            Console.Clear();
+            XmlDocument baseInfo = new XmlDocument();
+            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            baseInfo.Load(database);
+            var list = baseInfo.GetElementsByTagName("User");
+            for(var i = 0; i < list.Count; i++) {
+                XmlElement user = (XmlElement)baseInfo.GetElementsByTagName("User")[i];
+                XmlElement nickName = (XmlElement)baseInfo.GetElementsByTagName("NickName")[i];
+                if(user.GetAttribute("username") == enteredName) {
+                Console.WriteLine("");
+                Console.WriteLine("Welcome back, {0}", nickName.InnerText);
+                break;
+                } else {
+                Console.WriteLine("");
+                Console.WriteLine("I'm sorry, your information did not match our records, please try again...");
+                }
+            }
+            database.Close();
         }
         public void CheckBalance() {
             Console.WriteLine("The balance for {0}, is ${1}", Nickname, InitialBalance);
