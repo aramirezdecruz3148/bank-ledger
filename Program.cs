@@ -229,25 +229,25 @@ namespace bank_ledger {
                 action = Int32.Parse(Console.ReadLine());
                 Console.Clear();
                 switch(action) {
-                case 1:
-                user.CheckBalance();
-                Console.WriteLine("");
-                break;
-                case 2:
-                user.Deposit();
-                Console.WriteLine("");
-                break;
-                case 3:
-                user.Withdrawl();
-                Console.WriteLine("");
-                break;
-                case 4:
-                user.TransactionHistory();
-                Console.WriteLine("");
-                break;
-                case 5:
-                user.SignOut();
-                break;
+                    case 1:
+                    user.CheckBalance();
+                    Console.WriteLine("");
+                    break;
+                    case 2:
+                    user.Deposit();
+                    Console.WriteLine("");
+                    break;
+                    case 3:
+                    user.Withdrawl();
+                    Console.WriteLine("");
+                    break;
+                    case 4:
+                    user.TransactionHistory();
+                    Console.WriteLine("");
+                    break;
+                    case 5:
+                    user.SignOut();
+                    break;
                 }
             }
         }
