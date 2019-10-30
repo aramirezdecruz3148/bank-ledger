@@ -77,6 +77,9 @@ namespace bank_ledger {
             }
             database.Close();
         }
+        public void SignOut() {
+            Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
+        }
     }
     public class Transactions {
         public void CheckBalance() {
@@ -186,9 +189,6 @@ namespace bank_ledger {
             }
             database.Close();
         }
-        public void SignOut() {
-            Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
-        }
     }
     public class EntryMenu {
         User user = new User();
@@ -219,6 +219,7 @@ namespace bank_ledger {
     }
     public class OptionsMenu {
         Transactions transactions = new Transactions();
+        User user = new User();
         public void MainMenu() {
             int action = 0;
             while (action != 5) {
@@ -252,7 +253,7 @@ namespace bank_ledger {
                     Console.WriteLine("");
                     break;
                     case 5:
-                    transactions.SignOut();
+                    user.SignOut();
                     break;
                 }
             }
