@@ -162,7 +162,25 @@ namespace bank_ledger {
             database.Close();
         }
         public void TransactionHistory() {
-
+            Console.WriteLine("Here is your transaction history: ");
+            Console.WriteLine("**********************************");
+            XmlDocument baseInfo = new XmlDocument();
+            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            baseInfo.Load(database);
+            var transactionList = baseInfo.GetElementsByTagName("Transaction");
+            if(transactionList.Count == 0) {
+                Console.WriteLine("You have no transactions in our records, why not make some!");
+            }
+            for(var i = 0; i < transactionList.Count; i++) {
+                XmlElement transaction = (XmlElement)baseInfo.GetElementsByTagName("Transaction")[i];
+                var transactionType = transaction.GetAttribute("type");
+                XmlElement amount = (XmlElement)baseInfo.GetElementsByTagName("Amount")[i];
+                XmlElement balance = (XmlElement)baseInfo.GetElementsByTagName("Balance")[i];
+                Console.WriteLine("Amount {0}: ${1}", transactionType, amount.InnerText);
+                Console.WriteLine("Balance: ${0}", balance.InnerText);
+                Console.WriteLine("**********************************");
+            }
+            database.Close();
         }
         public void SignOut() {
             Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
