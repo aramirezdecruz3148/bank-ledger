@@ -76,7 +76,18 @@ namespace bank_ledger {
             database.Close();
         }
         public void CheckBalance() {
-            Console.WriteLine("The balance for {0}, is ${1}", Nickname, InitialBalance);
+            XmlDocument baseInfo = new XmlDocument();
+            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            baseInfo.Load(database);
+            var list = baseInfo.GetElementsByTagName("User");
+            var balanceList = baseInfo.GetElementsByTagName("Balance");
+            if(balanceList.Count == 0) {
+                Console.WriteLine("Your balance is $0, why not add some cash?");
+            } else {
+            var lastBalance = balanceList[balanceList.Count - 1];
+                Console.WriteLine("Your balance is ${0}", lastBalance.InnerText);
+            }
+            database.Close();
         }
         public void Deposit() {
             Console.WriteLine("Please enter the amount you wish to deposit: ");
