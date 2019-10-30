@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BankDatabase>
+  <User username="aramirez">
+    <Username>aramirez</Username>
+    <NickName>Alex</NickName>
+    <PinNumber>1234</PinNumber>
+    <Transaction type="deposited">
+      <Amount>30.00</Amount>
+      <Balance>30.00</Balance>
+    </Transaction>
+    <Transaction type="withdrawl">
+      <Amount>15.00</Amount>
+      <Balance>15.00</Balance>
+    </Transaction>
+  </User>
+</BankDatabase>

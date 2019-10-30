@@ -15,7 +15,7 @@ namespace bank_ledger {
         }
         public void AddUserToDatabase(string clientUsername, string clientNickname, string clientPinNumber) {
             XmlDocument baseInfo = new XmlDocument();
-            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
             baseInfo.Load(database);
             XmlElement user = baseInfo.CreateElement("User");
             user.SetAttribute("username", clientUsername);
@@ -33,7 +33,7 @@ namespace bank_ledger {
             user.AppendChild(pinNumber);
             baseInfo.DocumentElement.AppendChild(user);
             database.Close();
-            baseInfo.Save(@"c:\bank-database.xml");
+            baseInfo.Save(@"bank-ledger:\bank-database.xml");
         }
         public void CreateUser() {
             Console.WriteLine("To begin banking please create an account...");
@@ -54,7 +54,7 @@ namespace bank_ledger {
             var enteredPin = Console.ReadLine();
             Console.Clear();
             XmlDocument baseInfo = new XmlDocument();
-            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
             baseInfo.Load(database);
             var list = baseInfo.GetElementsByTagName("User");
             for(var i = 0; i < list.Count; i++) {
@@ -73,7 +73,7 @@ namespace bank_ledger {
         }
         public void CheckBalance() {
             XmlDocument baseInfo = new XmlDocument();
-            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
             baseInfo.Load(database);
             var list = baseInfo.GetElementsByTagName("User");
             var balanceList = baseInfo.GetElementsByTagName("Balance");
@@ -89,7 +89,7 @@ namespace bank_ledger {
             Console.WriteLine("Please enter the amount you wish to deposit: ");
             var deposit = Decimal.Parse(Console.ReadLine());
             XmlDocument baseInfo = new XmlDocument();
-            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
             baseInfo.Load(database);
             var list = baseInfo.GetElementsByTagName("User");
             var balanceList = baseInfo.GetElementsByTagName("Balance");
@@ -105,7 +105,7 @@ namespace bank_ledger {
                 transaction.AppendChild(amount);
                 transaction.AppendChild(balance);
                 list[0].AppendChild(transaction);
-                baseInfo.Save(@"c:\bank-database.xml");
+                baseInfo.Save(@"bank-ledger:\bank-database.xml");
                 Console.WriteLine("Thank you! After your deposit you have ${0} in your account", deposit);
             } else {
                 var lastBalance = decimal.Parse(balanceList[balanceList.Count - 1].InnerText);
@@ -121,7 +121,7 @@ namespace bank_ledger {
                 transaction.AppendChild(amount);
                 transaction.AppendChild(balance);
                 list[0].AppendChild(transaction);
-                baseInfo.Save(@"c:\bank-database.xml");
+                baseInfo.Save(@"bank-ledger:\bank-database.xml");
                 Console.WriteLine("Thank you! After your deposit you have ${0} in your account", newBalance);
             }
             database.Close();
@@ -130,7 +130,7 @@ namespace bank_ledger {
             Console.WriteLine("Please enter the amount you would like to withdraw: ");
             var withdrawl = Decimal.Parse(Console.ReadLine());
             XmlDocument baseInfo = new XmlDocument();
-            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
             baseInfo.Load(database);
             var list = baseInfo.GetElementsByTagName("User");
             var balanceList = baseInfo.GetElementsByTagName("Balance");
@@ -152,7 +152,7 @@ namespace bank_ledger {
                 transaction.AppendChild(amount);
                 transaction.AppendChild(balance);
                 list[0].AppendChild(transaction);
-                baseInfo.Save(@"c:\bank-database.xml");
+                baseInfo.Save(@"bank-ledger:\bank-database.xml");
                 Console.WriteLine("Thank you! After your withdrawl you have ${0} in your account", newBalance);
             }
             database.Close();
@@ -161,7 +161,7 @@ namespace bank_ledger {
             Console.WriteLine("Here is your transaction history: ");
             Console.WriteLine("**********************************");
             XmlDocument baseInfo = new XmlDocument();
-            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
             baseInfo.Load(database);
             var transactionList = baseInfo.GetElementsByTagName("Transaction");
             if(transactionList.Count == 0) {
