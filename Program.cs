@@ -133,12 +133,33 @@ namespace bank_ledger {
         public void Withdrawl() {
             Console.WriteLine("Please enter the amount you would like to withdraw: ");
             var withdrawl = Decimal.Parse(Console.ReadLine());
-            if(withdrawl > InitialBalance) {
-                Console.WriteLine("I'm sorry, you have insufficient funds for that transaction.");
+            XmlDocument baseInfo = new XmlDocument();
+            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            baseInfo.Load(database);
+            var list = baseInfo.GetElementsByTagName("User");
+            var balanceList = baseInfo.GetElementsByTagName("Balance");
+            var lastBalance = decimal.Parse(balanceList[balanceList.Count - 1].InnerText);
+            if(balanceList.Count == 0) {
+                Console.WriteLine("I'm sorry, you have insufficient funds for this transaction.");
+            } else if(lastBalance < withdrawl) {
+                Console.WriteLine("I'm sorry, you have insufficient funds for this transaction.");
             } else {
-                InitialBalance -= withdrawl;
-                Console.WriteLine("Thank you, after your withdrawl you have ${0} in your account.", InitialBalance);
+                var newBalance = lastBalance - withdrawl;
+                XmlElement transaction = baseInfo.CreateElement("Transaction");
+                transaction.SetAttribute("type", "withdrawl");
+                XmlElement amount = baseInfo.CreateElement("Amount");
+                XmlText amountText = baseInfo.CreateTextNode(withdrawl.ToString());
+                XmlElement balance = baseInfo.CreateElement("Balance");
+                XmlText balanceText = baseInfo.CreateTextNode(newBalance.ToString());
+                amount.AppendChild(amountText);
+                balance.AppendChild(balanceText);
+                transaction.AppendChild(amount);
+                transaction.AppendChild(balance);
+                list[0].AppendChild(transaction);
+                baseInfo.Save(@"c:\bank-database.xml");
+                Console.WriteLine("Thank you! After your withdrawl you have ${0} in your account", newBalance);
             }
+            database.Close();
         }
         public void TransactionHistory() {
 
