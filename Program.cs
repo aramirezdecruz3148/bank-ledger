@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Xml;
+using System.Text;
 
 namespace bank_ledger {
     public class User {
@@ -6,6 +9,36 @@ namespace bank_ledger {
         public string Nickname { get; private set; }
         public int PinNumber { get; private set; }
         public decimal InitialBalance { get; private set; }
+        public void CreateDatabase() {
+            XmlTextWriter BankDatabase;
+            BankDatabase = new XmlTextWriter(@"bank-ledger:\bank-database.xml", Encoding.UTF8);
+            BankDatabase.WriteStartDocument();
+            BankDatabase.WriteStartElement("BankDatabase"); 
+            BankDatabase.WriteEndElement();
+            BankDatabase.Close();
+        }
+        public void AddUserToDatabase(string clientUsername, string clientNickname, string clientPinNumber) {
+            XmlDocument baseInfo = new XmlDocument();
+            FileStream database = new FileStream(@"c:\bank-database.xml", FileMode.Open);
+            baseInfo.Load(database);
+            XmlElement user = baseInfo.CreateElement("User");
+            user.SetAttribute("username", clientUsername);
+            XmlElement userName = baseInfo.CreateElement("Username");
+            XmlText userNameText = baseInfo.CreateTextNode(clientUsername);
+            XmlElement nickName = baseInfo.CreateElement("NickName");
+            XmlText nickNameText = baseInfo.CreateTextNode(clientNickname);
+            XmlElement pinNumber = baseInfo.CreateElement("PinNumber");
+            XmlText pinNumberText = baseInfo.CreateTextNode(clientPinNumber);
+            userName.AppendChild(userNameText);
+            nickName.AppendChild(nickNameText);
+            pinNumber.AppendChild(pinNumberText);
+            user.AppendChild(userName);
+            user.AppendChild(nickName);
+            user.AppendChild(pinNumber);
+            baseInfo.DocumentElement.AppendChild(user);
+            database.Close();
+            baseInfo.Save(@"c:\bank-database.xml");
+        }
         public void CreateUser() {
             Console.WriteLine("To begin banking please create an account...");
             Console.WriteLine("Enter a username: ");
@@ -51,6 +84,9 @@ namespace bank_ledger {
                 Console.WriteLine("Thank you, after your withdrawl you have ${0} in your account.", InitialBalance);
             }
         }
+        public void TransactionHistory() {
+
+        }
         public void SignOut() {
             Console.WriteLine("Thank you for choosing deCruz Bank, we hope to see you soon!");
         }
@@ -87,13 +123,14 @@ namespace bank_ledger {
         User user = new User();
         public void MainMenu() {
             int action = 0;
-            while (action != 4) {
+            while (action != 5) {
                 Console.WriteLine("******** You are signed into deCruz Bank ********");
                 Console.WriteLine("Please choose from our menu of options...");
                 Console.WriteLine("[1] Check balance.");
                 Console.WriteLine("[2] Make a deposit.");
                 Console.WriteLine("[3] Make a withdrawl.");
-                Console.WriteLine("[4] Sign-out.");
+                Console.WriteLine("[4] View transaction history.");
+                Console.WriteLine("[5] Sign-out.");
                 Console.WriteLine("Enter the number of the option you wish to select: ");
                 Console.WriteLine("*************************************************");
                 Console.WriteLine("");
@@ -112,6 +149,10 @@ namespace bank_ledger {
                 Console.WriteLine("");
                 break;
                 case 4:
+                user.TransactionHistory();
+                Console.WriteLine("");
+                break;
+                case 5:
                 user.SignOut();
                 break;
                 }
