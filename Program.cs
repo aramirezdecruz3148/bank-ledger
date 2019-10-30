@@ -38,7 +38,7 @@ namespace bank_ledger {
         public void CreateUser() {
             Console.WriteLine("To begin banking please create an account...");
             Console.WriteLine("Enter a username: ");
-            var enteredUsername = Console.ReadLine();
+            var enteredUsername = Console.ReadLine().ToLower();
             Console.WriteLine("Enter a nickname we can refer to you by: ");
             var enteredNickName = Console.ReadLine();
             Console.WriteLine("Enter a 4 digit pin number: ");
@@ -49,7 +49,7 @@ namespace bank_ledger {
         }
         public void SigninUser() {
             Console.WriteLine("Welcome to deCruz Bank, to sign-in, please enter your username: ");
-            var enteredName = Console.ReadLine();
+            var enteredName = Console.ReadLine().ToLower();
             Console.WriteLine("Please enter your pin number: ");
             var enteredPin = Console.ReadLine();
             Console.Clear();
