@@ -38,7 +38,7 @@ namespace bank_ledger {
         public void CreateUser() {
             Console.WriteLine("To begin banking please create an account...");
             Console.WriteLine("Enter a username: ");
-            var enteredUsername = Console.ReadLine();
+            var enteredUsername = Console.ReadLine().ToLower();
             Console.WriteLine("Enter a nickname we can refer to you by: ");
             var enteredNickName = Console.ReadLine();
             Console.WriteLine("Enter a 4 digit pin number: ");
@@ -48,8 +48,10 @@ namespace bank_ledger {
             Console.Clear();
         }
         public void SigninUser() {
+            OptionsMenu mainMenu = new OptionsMenu();
+            EntryMenu signinMenu = new EntryMenu();
             Console.WriteLine("Welcome to deCruz Bank, to sign-in, please enter your username: ");
-            var enteredName = Console.ReadLine();
+            var enteredName = Console.ReadLine().ToLower();
             Console.WriteLine("Please enter your pin number: ");
             var enteredPin = Console.ReadLine();
             Console.Clear();
@@ -59,14 +61,18 @@ namespace bank_ledger {
             var list = baseInfo.GetElementsByTagName("User");
             for(var i = 0; i < list.Count; i++) {
                 XmlElement user = (XmlElement)baseInfo.GetElementsByTagName("User")[i];
+                XmlElement pin = (XmlElement)baseInfo.GetElementsByTagName("PinNumber")[i];
                 XmlElement nickName = (XmlElement)baseInfo.GetElementsByTagName("NickName")[i];
-                if(user.GetAttribute("username") == enteredName) {
+                if(user.GetAttribute("username") == enteredName && pin.InnerText == enteredPin) {
                 Console.WriteLine("");
                 Console.WriteLine("Welcome back, {0}", nickName.InnerText);
+                mainMenu.MainMenu();
                 break;
                 } else {
                 Console.WriteLine("");
                 Console.WriteLine("I'm sorry, your information did not match our records, please try again...");
+                Console.WriteLine("");
+                signinMenu.SignUp_In();
                 }
             }
             database.Close();
@@ -86,7 +92,7 @@ namespace bank_ledger {
             database.Close();
         }
         public void Deposit() {
-            Console.WriteLine("Please enter the amount you wish to deposit: ");
+            Console.WriteLine("Please enter the amount you wish to deposit(in formatt 00.00): ");
             var deposit = Decimal.Parse(Console.ReadLine());
             XmlDocument baseInfo = new XmlDocument();
             FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
@@ -127,7 +133,7 @@ namespace bank_ledger {
             database.Close();
         }
         public void Withdrawl() {
-            Console.WriteLine("Please enter the amount you would like to withdraw: ");
+            Console.WriteLine("Please enter the amount you would like to withdraw (in formatt 00.00): ");
             var withdrawl = Decimal.Parse(Console.ReadLine());
             XmlDocument baseInfo = new XmlDocument();
             FileStream database = new FileStream(@"bank-ledger:\bank-database.xml", FileMode.Open);
@@ -184,7 +190,6 @@ namespace bank_ledger {
     }
     public class EntryMenu {
         User user = new User();
-        OptionsMenu menu = new OptionsMenu();
          public void SignUp_In() {
             int action = 0;
             while (action != 2) {
@@ -205,7 +210,6 @@ namespace bank_ledger {
                     case 2:
                     user.SigninUser();
                     Console.WriteLine("");
-                    menu.MainMenu();
                     break;
                 }
             }
